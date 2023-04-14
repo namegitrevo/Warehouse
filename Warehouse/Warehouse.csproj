@@ -103,7 +103,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainPages\PageAddDocumentItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPages\PageAddReceipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPages\PageAddRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPages\PageEditDocumentItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,12 +255,22 @@
     </Compile>
     <Compile Include="AssistanceClass\AppFrame.cs" />
     <Compile Include="AssistanceClass\HelpClass.cs" />
+    <Compile Include="AssistanceClass\ListDocuments.cs" />
     <Compile Include="AssistanceClass\ListPriority.cs" />
     <Compile Include="AssistanceClass\ListReceipt.cs" />
     <Compile Include="AssistanceClass\ListRole.cs" />
     <Compile Include="AssistanceClass\ListStorage.cs" />
+    <Compile Include="MainPages\PageAddDocumentItems.xaml.cs">
+      <DependentUpon>PageAddDocumentItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPages\PageAddReceipt.xaml.cs">
+      <DependentUpon>PageAddReceipt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPages\PageAddRequests.xaml.cs">
       <DependentUpon>PageAddRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPages\PageEditDocumentItems.xaml.cs">
+      <DependentUpon>PageEditDocumentItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPages\PageEditRequests.xaml.cs">
       <DependentUpon>PageEditRequests.xaml</DependentUpon>

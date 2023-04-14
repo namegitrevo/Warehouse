@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +18,14 @@ using Warehouse.AssistanceClass;
 namespace Warehouse.MainPages
 {
     /// <summary>
-    /// Логика взаимодействия для PageReceipt.xaml
+    /// Логика взаимодействия для PageAddReceipt.xaml
     /// </summary>
-    public partial class PageReceipt : Page
+    public partial class PageAddReceipt : Page
     {
-        static private List<DocumentItem> list1 = AppConnect.modelOdb.DocumentItems.Where(x=> x.DocumentId==1).ToList();
+        static private List<DocumentItem> list1 = AppConnect.modelOdb.DocumentItems.Where(x => x.DocumentId == 1).ToList();
         static private int helpint = 0;
         public static WarehouseEntities DataEntities1 { get; set; }
-        public PageReceipt()
+        public PageAddReceipt()
         {
             DataEntities1 = new WarehouseEntities();
             InitializeComponent();
@@ -194,4 +193,3 @@ namespace Warehouse.MainPages
         }
     }
 }
-

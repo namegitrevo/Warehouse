@@ -13,5 +13,7 @@ namespace Warehouse.AssistanceClass
         public static int UnitId { get; set; }
         public static int SuppId { get; set; }
         public static int reqId { get; set; }
+        public static int DocId { get; set; }
+        public static int DocItId { get; set; }
     }
 }

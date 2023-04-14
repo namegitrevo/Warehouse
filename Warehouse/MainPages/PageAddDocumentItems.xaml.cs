@@ -14,50 +14,48 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Warehouse.ApplicationData;
 using Warehouse.AssistanceClass;
-using Warehouse.MainPages;
 
-namespace Warehouse.AdminPages
+namespace Warehouse.MainPages
 {
     /// <summary>
-    /// Логика взаимодействия для PageAddUser.xaml
+    /// Логика взаимодействия для PageAddDocumentItems.xaml
     /// </summary>
-    public partial class PageAddEmployees : Page
+    public partial class PageAddDocumentItems : Page
     {
         public static WarehouseEntities DataEntities1 { get; set; }
-        public PageAddEmployees()
+        public PageAddDocumentItems()
         {
             DataEntities1 = new WarehouseEntities();
             InitializeComponent();
-            var rolesObj = AppConnect.modelOdb.Roles.ToList();
-            List<string> roles = new List<string>();
-            for (int i = 0; i < rolesObj.Count; i++)
+            var assetsObj = AppConnect.modelOdb.MaterialAssets.ToList();
+            List<string> assets = new List<string>();
+            for (int i = 0; i < assetsObj.Count; i++)
             {
-                roles.Add(rolesObj[i].Name);
+                assets.Add(assetsObj[i].Name);
             }
-            ComboBoxRole.ItemsSource = roles;
+            ComboBoxAssets.ItemsSource = assets;
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (AppConnect.modelOdb.Employees.Count(x => x.Login == TextBoxLogin.Text) > 0)
+            List<DocumentItem> list1 = AppConnect.modelOdb.DocumentItems.Where(x => HelpClass.DocItId == x.DocumentId).ToList();
+            if (list1.Count(x => x.AssetsName == ComboBoxAssets.SelectedItem.ToString()) > 0)
             {
-                MessageBox.Show("Пользователь с таким логином уже существует!",
+                MessageBox.Show("Этот товар уже существует!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             try
             {
-                string roles = ComboBoxRole.SelectedItem.ToString();
-                var rolesObj = AppConnect.modelOdb.Roles.FirstOrDefault(x => roles == x.Name);
-                Employee employeeObj = new Employee()
+                string assets = ComboBoxAssets.SelectedItem.ToString();
+                var assetsObj = AppConnect.modelOdb.MaterialAssets.FirstOrDefault(x => assets == x.Name);
+                DocumentItem documentitemObj = new DocumentItem()
                 {
-                    Surname = TextBoxSurname.Text,
-                    Name = TextBoxName.Text,
-                    Patronymic = TextBoxLastname.Text,
-                    Login = TextBoxLogin.Text,
-                    Password = TextBoxPassword.Text,
-                    RoleId = rolesObj.Id
+                    DocumentId = HelpClass.DocItId,
+                    MaterialAssetsId = assetsObj.Id,
+                    Amount = decimal.Parse(TextBoxAmount.Text),
+                    PriceForUnit = decimal.Parse( TextBoxPrice.Text)
                 };
-                AppConnect.modelOdb.Employees.Add(employeeObj);
+                AppConnect.modelOdb.DocumentItems.Add(documentitemObj);
                 AppConnect.modelOdb.SaveChanges();
                 MessageBox.Show("Данные успешно добавлены",
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -71,7 +69,7 @@ namespace Warehouse.AdminPages
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageEmployees());
+            AppFrame.frameMain.Navigate(new PageReceipt());
         }
     }
 }
