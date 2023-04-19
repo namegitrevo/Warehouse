@@ -32,8 +32,7 @@ namespace Warehouse.MainPages
             try
             {
                 var employeeObj = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);
-                var Obj = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.Id == employeeObj.Id);
-                var empObj = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.Id == Obj.Id);
+                HelpClass.RoleId = employeeObj.RoleId;
                 if (employeeObj == null)
                 {
                     MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -43,12 +42,12 @@ namespace Warehouse.MainPages
                     switch (employeeObj.RoleId)
                     {
                         case 1:
-                            MessageBox.Show("Здравствуйте, Администратор " + empObj.Surname + " " + empObj.Name + " " + empObj.Patronymic + "!", "Уведомление",
+                            MessageBox.Show("Здравствуйте, Администратор " + employeeObj.Surname + " " + employeeObj.Name + " " + employeeObj.Patronymic + "!", "Уведомление",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                             AppFrame.frameMain.Navigate(new PageMainMenu());
                             break;
                         case 2:
-                            MessageBox.Show("Здравствуйте, " + empObj.Surname + " " + empObj.Name + " " + empObj.Patronymic + "!", "Уведомление",
+                            MessageBox.Show("Здравствуйте, " + employeeObj.Surname + " " + employeeObj.Name + " " + employeeObj.Patronymic + "!", "Уведомление",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                             AppFrame.frameMain.Navigate(new PageMainMenu());
                             break;

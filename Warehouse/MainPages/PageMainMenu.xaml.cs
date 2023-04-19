@@ -25,6 +25,14 @@ namespace Warehouse.MainPages
         public PageMainMenu()
         {
             InitializeComponent();
+            if (HelpClass.RoleId == 2)
+            {
+                ButtonUser.Visibility = Visibility.Collapsed;
+            }
+            else if (HelpClass.RoleId==1)
+            {
+                ButtonUser.Visibility = Visibility.Visible;
+            }
         }
 
         private void ButtonReceipt_Click(object sender, RoutedEventArgs e)
@@ -50,6 +58,11 @@ namespace Warehouse.MainPages
         private void ButtonAssets_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new PageAssets());
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageLogin());
         }
     }
 }

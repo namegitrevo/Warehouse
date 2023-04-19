@@ -47,6 +47,7 @@
             <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
 
                 <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="ButtonMenu" Content="Меню" Click="ButtonMenu_Click"/>
+                <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="ButtonPrint" Content="Печать" Click="ButtonPrint_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
                 <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="ButtonReset" Content="Сбросить" Click="ButtonReset_Click"/>

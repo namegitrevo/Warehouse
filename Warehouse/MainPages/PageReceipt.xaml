@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Warehouse.MainPages" xmlns:AssistanceClass="clr-namespace:Warehouse.AssistanceClass"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageReceipt">
+      Title="Поступление">
 
     <Page.Resources>
         <AssistanceClass:ListDocuments x:Key="listdocuments"/>

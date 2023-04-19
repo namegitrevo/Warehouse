@@ -13,11 +13,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="ButtonReceipt" Width="150" Height="24" Margin="3" Content="Приход" Click="ButtonReceipt_Click"/>
+            <Button x:Name="ButtonReceipt" Width="150" Height="24" Margin="3" Content="Поступление" Click="ButtonReceipt_Click"/>
             <Button x:Name="ButtonRequest" Width="150" Height="24" Margin="3" Content="Заявки" Click="ButtonRequest_Click"/>
             <Button x:Name="ButtonSupplies" Width="150" Height="24" Margin="3" Content="Запасы" Click="ButtonSupplies_Click"/>
             <Button x:Name="ButtonUser" Width="150" Height="24" Margin="3" Content="Пользователи" Click="ButtonUser_Click"/>
             <Button x:Name="ButtonAssets" Width="150" Height="24" Margin="3" Content="Ценности" Click="ButtonAssets_Click"/>
+            <Button x:Name="ButtonBack" Width="150" Height="24" Margin="3" Content="Выйти" Click="ButtonBack_Click"/>
         </StackPanel>
     </Grid>
 </Page>

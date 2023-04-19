@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Warehouse.ApplicationData;
 using Warehouse.AssistanceClass;
 using Warehouse.MainPages;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Warehouse.AdminPages
 {
@@ -152,6 +153,37 @@ namespace Warehouse.AdminPages
             SuppliesList.ItemsSource = list1;
             string Count = "Кол-во сотрудников: " + SuppliesList.Items.Count.ToString();
             TextBlockCount.Text = Count;
-        } 
+        }
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            //var Spisok = AppConnect.modelOdb.Supplies.Where(x => x.Amount>0).ToList();
+            //var application = new Excel.Application();
+            ////application.SheetsInNewWorkbook = Spisok.Count();
+            //Excel.Workbook workbook = application.Workbooks.Add(Type.Missing);
+            //Excel.Worksheet worksheet = application.Worksheets.Item[1];
+            //int RowIndex = 5;
+            //Excel.Range header = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[4, 5]];
+            //header.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //header.Font.Bold = true;
+            //worksheet.Cells[2][1] = "ПРАЙС-лист";
+            //worksheet.Cells[3][1] = "OOO \"РЫБАЛКА\"";
+            //worksheet.Cells[5][2] = DateTime.Now;
+            //worksheet.Cells[1][4] = "Артикул";
+            //worksheet.Cells[2][4] = "Наименование";
+            //worksheet.Cells[3][4] = "Категория";
+            //worksheet.Cells[4][4] = "Производитель";
+            //worksheet.Cells[5][4] = "Стоимость (руб.)";
+            //for (int i = 0; i < Spisok.Count(); i++)
+            //{
+            //    worksheet.Cells[1][RowIndex] = Spisok[i].ProductArticleNumber;
+            //    worksheet.Cells[2][RowIndex] = Spisok[i].ProductName;
+            //    worksheet.Cells[3][RowIndex] = Spisok[i].ProductCategory;
+            //    worksheet.Cells[4][RowIndex] = Spisok[i].ProductManufacturer;
+            //    worksheet.Cells[5][RowIndex] = Spisok[i].ProductCost;
+            //    RowIndex++;
+            //}
+            //application.Visible = true;
+        }
     }
 }

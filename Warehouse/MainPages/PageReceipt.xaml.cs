@@ -54,6 +54,7 @@ namespace Warehouse.MainPages
                     DocumentItem employeesObj = DocumentItemsList.SelectedItems[i] as DocumentItem;
                     HelpClass.DocId = employeesObj.Id;
                 }
+                HelpClass.DocItemAddId = "Edit";
                 AppFrame.frameMain.Navigate(new PageEditDocumentItems());
             }
             else
@@ -100,6 +101,7 @@ namespace Warehouse.MainPages
         {
             AppFrame.frameMain.Navigate(new PageAddDocumentItems());
             HelpClass.DocItId = helpint;
+            HelpClass.DocItemAddId = "Edit";
         }
 
         private void ButtonUp_Click(object sender, RoutedEventArgs e)
@@ -167,7 +169,8 @@ namespace Warehouse.MainPages
 
         private void AddReceiptButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AppFrame.frameMain.Navigate(new PageAddReceipt());
+            HelpClass.DocumentAddId = 0;
         }
 
         private void SaveReceiptButton_Click(object sender, RoutedEventArgs e)

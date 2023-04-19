@@ -22,26 +22,28 @@ namespace Warehouse.MainPages
     /// </summary>
     public partial class PageAddReceipt : Page
     {
-        static private List<DocumentItem> list1 = AppConnect.modelOdb.DocumentItems.Where(x => x.DocumentId == 1).ToList();
+        
+        static private List<DocumentItem> list1 = AppConnect.modelOdb.DocumentItems.Where(x => x.DocumentId == HelpClass.DocumentAddId).ToList();
         static private int helpint = 0;
         public static WarehouseEntities DataEntities1 { get; set; }
         public PageAddReceipt()
         {
             DataEntities1 = new WarehouseEntities();
             InitializeComponent();
-            if (HelpClass.DocItId == 0)
+            if (HelpClass.DocumentAddId != 0)
             {
-                list1 = AppConnect.modelOdb.DocumentItems.Where(x => x.DocumentId == 1).ToList();
-                ComboBoxReceipt.SelectedIndex = 0;//////доработать
-            }
-            else
-            {
-                list1 = AppConnect.modelOdb.DocumentItems.Where(x => x.DocumentId == HelpClass.DocItId).ToList();
-
+                list1 = AppConnect.modelOdb.DocumentItems.Where(x => x.DocumentId == HelpClass.DocumentAddId).ToList();
             }
             DocumentItemsList.ItemsSource = list1;
             string Count = "Кол-во строк: " + DocumentItemsList.Items.Count.ToString();
             TextBlockCount.Text = Count;
+            var contractorObj = AppConnect.modelOdb.Contractors.ToList();
+            List<string> contractor = new List<string>();
+            for (int i = 0; i < contractorObj.Count; i++)
+            {
+                contractor.Add(contractorObj[i].Name);
+            }
+            ComboBoxContractor.ItemsSource = contractor;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -51,8 +53,9 @@ namespace Warehouse.MainPages
                 for (int i = 0; i < DocumentItemsList.SelectedItems.Count; i++)
                 {
                     DocumentItem employeesObj = DocumentItemsList.SelectedItems[i] as DocumentItem;
-                    HelpClass.DocId = employeesObj.Id;
+                    HelpClass.DocId2 = employeesObj.Id;
                 }
+                HelpClass.DocItemAddId2 = "Add";
                 AppFrame.frameMain.Navigate(new PageEditDocumentItems());
             }
             else
@@ -88,17 +91,27 @@ namespace Warehouse.MainPages
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new PageLogin());
+            HelpClass.DocumentAddId = 0;
         }
 
         private void ButtonMenu_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new PageMainMenu());
+            HelpClass.DocumentAddId = 0;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new PageAddDocumentItems());
             HelpClass.DocItId = helpint;
+            if (HelpClass.DocumentAddId==0)
+            {
+                HelpClass.DocItemAddId = "Add";
+            }
+            else if (HelpClass.DocumentAddId!=0)
+            {
+                HelpClass.DocItemAddId = "Edit2";
+            }
         }
 
         private void ButtonUp_Click(object sender, RoutedEventArgs e)
@@ -142,33 +155,6 @@ namespace Warehouse.MainPages
             string Count = "Кол-во cтрок: " + DocumentItemsList.Items.Count.ToString();
             TextBlockCount.Text = Count;
         }
-
-        private void ComboBoxReceipt_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Document documentObj = ComboBoxReceipt.SelectedItem as Document;
-            list1 = AppConnect.modelOdb.DocumentItems.Where(x => documentObj.Id == x.DocumentId).ToList();
-            DocumentItemsList.ItemsSource = list1;
-            helpint = documentObj.Id;                                                                                   //вспомогательная переменная
-            var receiptObj = AppConnect.modelOdb.Receipts.FirstOrDefault(x => x.DocumentId == documentObj.Id);
-            TextBoxNumber.Text = receiptObj.Number;
-            DPDate.SelectedDate = receiptObj.Date;
-            ComboBoxContractor.SelectedItem = receiptObj.Contractor.Name;
-            var contractorObj = AppConnect.modelOdb.Contractors.ToList();
-            List<string> contractor = new List<string>();
-            for (int i = 0; i < contractorObj.Count; i++)
-            {
-                contractor.Add(contractorObj[i].Name);
-            }
-            ComboBoxContractor.ItemsSource = contractor;
-            string Count = "Кол-во строк: " + DocumentItemsList.Items.Count.ToString();
-            TextBlockCount.Text = Count;
-        }
-
-        private void AddReceiptButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void SaveReceiptButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -177,11 +163,28 @@ namespace Warehouse.MainPages
                 DateTime dateTime = DateTime.Parse(date);
                 string contractor = ComboBoxContractor.SelectedItem.ToString();
                 var contractorObj = AppConnect.modelOdb.Contractors.FirstOrDefault(x => contractor == x.Name);
-                var receiptObj = AppConnect.modelOdb.Receipts.FirstOrDefault(x => x.DocumentId == helpint);
-                receiptObj.Number = TextBoxNumber.Text;
-                receiptObj.Date = dateTime;
-                receiptObj.СontractorId = contractorObj.Id;
+                Receipt receiptObj = new Receipt()
+                {
+                    Number = TextBoxNumber.Text,
+                    Date = dateTime,
+                    СontractorId= contractorObj.Id,
+                    DocumentId=  HelpClass.DocumentAddId
+                };
+                AppConnect.modelOdb.Receipts.Add(receiptObj);
+                receiptObj.Document.Name = "Поступление " + TextBoxNumber.Text + " от " + date;
+                receiptObj.Document.Date = dateTime;
+                //var documentitemObj = AppConnect.modelOdb.DocumentItems.Where(x=>x.DocumentId == HelpClass.DocumentAddId).ToList();
+                //var supplyObj = AppConnect.modelOdb.Supplies.ToList();
+                //supplyObj.Clear();
+                //for (int i = 0; i < documentitemObj.Count; i++)
+                //{
+                //    for (int j = 0; j <supplyObj.Count; j++)
+                //    {
+                //        var supp = AppConnect.modelOdb.Supplies.First(x => x[j].MaterialAssetsId == documentitemObj[i].MaterialAssetsId);
+                //    }
+                //}
                 AppConnect.modelOdb.SaveChanges();
+                HelpClass.DocumentAddId = 0;
                 MessageBox.Show("Данные успешно добавлены!",
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
             }

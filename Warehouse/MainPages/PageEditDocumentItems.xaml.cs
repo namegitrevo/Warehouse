@@ -25,10 +25,20 @@ namespace Warehouse.MainPages
         public PageEditDocumentItems()
         {
             InitializeComponent();
-            var documentitemsObj = AppConnect.modelOdb.DocumentItems.FirstOrDefault(x => x.Id == HelpClass.DocId);
-            TextBoxAmount.Text = documentitemsObj.Amount.ToString();
-            TextBoxPrice.Text = documentitemsObj.PriceForUnit.ToString();
-            ComboBoxAssets.SelectedItem = documentitemsObj.AssetsName;
+            if (HelpClass.DocItemAddId2=="Edit")
+            {
+                var documentitemsObj = AppConnect.modelOdb.DocumentItems.FirstOrDefault(x => x.Id == HelpClass.DocId);
+                TextBoxAmount.Text = documentitemsObj.Amount.ToString();
+                TextBoxPrice.Text = documentitemsObj.PriceForUnit.ToString();
+                ComboBoxAssets.SelectedItem = documentitemsObj.AssetsName;
+            }
+            else if (HelpClass.DocItemAddId2 == "Add")
+            {
+                var documentitemsObj = AppConnect.modelOdb.DocumentItems.FirstOrDefault(x => x.Id == HelpClass.DocId2);
+                TextBoxAmount.Text = documentitemsObj.Amount.ToString();
+                TextBoxPrice.Text = documentitemsObj.PriceForUnit.ToString();
+                ComboBoxAssets.SelectedItem = documentitemsObj.AssetsName;
+            }
             var assetsObj = AppConnect.modelOdb.MaterialAssets.ToList();
             List<string> assets = new List<string>();
             for (int i = 0; i < assetsObj.Count; i++)
@@ -39,28 +49,58 @@ namespace Warehouse.MainPages
         }
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (HelpClass.DocItemAddId2 == "Edit") 
             {
-                string assets = ComboBoxAssets.SelectedItem.ToString();
-                var assetsObj = AppConnect.modelOdb.MaterialAssets.FirstOrDefault(x => assets == x.Name);
-                var documentitemObj = AppConnect.modelOdb.DocumentItems.FirstOrDefault(x => x.Id == HelpClass.DocId);
-                documentitemObj.PriceForUnit = decimal.Parse(TextBoxPrice.Text);
-                documentitemObj.Amount = decimal.Parse(TextBoxAmount.Text);
-                documentitemObj.MaterialAssetsId = assetsObj.Id;
-                AppConnect.modelOdb.SaveChanges();
-                MessageBox.Show("Данные успешно добавлены!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    string assets = ComboBoxAssets.SelectedItem.ToString();
+                    var assetsObj = AppConnect.modelOdb.MaterialAssets.FirstOrDefault(x => assets == x.Name);
+                    var documentitemObj = AppConnect.modelOdb.DocumentItems.FirstOrDefault(x => x.Id == HelpClass.DocId);
+                    documentitemObj.PriceForUnit = decimal.Parse(TextBoxPrice.Text);
+                    documentitemObj.Amount = decimal.Parse(TextBoxAmount.Text);
+                    documentitemObj.MaterialAssetsId = assetsObj.Id;
+                    AppConnect.modelOdb.SaveChanges();
+                    MessageBox.Show("Данные успешно добавлены!",
+                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка при добавлении данных!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch
+            if (HelpClass.DocItemAddId2 == "Add")
             {
-                MessageBox.Show("Ошибка при добавлении данных!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    string assets = ComboBoxAssets.SelectedItem.ToString();
+                    var assetsObj = AppConnect.modelOdb.MaterialAssets.FirstOrDefault(x => assets == x.Name);
+                    var documentitemObj = AppConnect.modelOdb.DocumentItems.FirstOrDefault(x => x.Id == HelpClass.DocId2);
+                    documentitemObj.PriceForUnit = decimal.Parse(TextBoxPrice.Text);
+                    documentitemObj.Amount = decimal.Parse(TextBoxAmount.Text);
+                    documentitemObj.MaterialAssetsId = assetsObj.Id;
+                    AppConnect.modelOdb.SaveChanges();
+                    MessageBox.Show("Данные успешно добавлены!",
+                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка при добавлении данных!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageReceipt());
+            if (HelpClass.DocItemAddId2 == "Edit")
+            {
+                AppFrame.frameMain.Navigate(new PageReceipt());
+            }
+            else if (HelpClass.DocItemAddId2 == "Add")
+            {
+                AppFrame.frameMain.Navigate(new PageAddReceipt());
+            }
         }
     }
 }
