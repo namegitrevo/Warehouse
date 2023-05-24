@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Warehouse.MainPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageEditDocumentItems">
+      Title="Редактирование">
 
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid>

@@ -101,6 +101,14 @@ namespace Warehouse.MainPages
             {
                 AppFrame.frameMain.Navigate(new PageAddReceipt());
             }
+            else if (HelpClass.DocItemAddId == "Edit")
+            {
+                AppFrame.frameMain.Navigate(new PageReceipt());
+            }
+            else if (HelpClass.DocItemAddId == "Add")
+            {
+                AppFrame.frameMain.Navigate(new PageAddReceipt());
+            }
         }
     }
 }

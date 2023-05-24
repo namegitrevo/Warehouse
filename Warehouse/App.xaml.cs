@@ -13,5 +13,6 @@ namespace Warehouse
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

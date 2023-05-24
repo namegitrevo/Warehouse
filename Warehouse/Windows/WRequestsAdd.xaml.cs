@@ -10,37 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Warehouse.ApplicationData;
 using Warehouse.AssistanceClass;
+using Warehouse.MainPages;
 
-namespace Warehouse.MainPages
+namespace Warehouse.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для PageEditRequests.xaml
+    /// Логика взаимодействия для WRequestsAdd.xaml
     /// </summary>
-    public partial class PageEditRequests : Page
+    public partial class WRequestsAdd : Window
     {
-        public PageEditRequests()
+        public WRequestsAdd()
         {
             InitializeComponent();
-            var requestsObj = AppConnect.modelOdb.Requests.FirstOrDefault(x => x.Id == HelpClass.reqId);
-
-            ComboBoxStatus.SelectedItem = requestsObj.StatusName;
-            DPDate.SelectedDate = requestsObj.Deadline;
-            DPDeadline.SelectedDate = requestsObj.Date;
-            ComboBoxTheme.SelectedItem = requestsObj.ThemeName;
-            TextBoxCustomer.Text = requestsObj.Customer;
-            ComboBoxExecutor.SelectedItem = requestsObj.ExecutorName;
-            ComboBoxPriority.SelectedItem = requestsObj.PriorityName;
-            ComboBoxCompany.SelectedItem = requestsObj.CompanyName;
-            //ComboBoxAssets.SelectedItem = requestsObj.
-            TextBoxCreator.Text = requestsObj.Creator;
-            TextBoxAddress.Text = requestsObj.Address;
-            TextBoxContent.Text = requestsObj.Content;
-            TextBoxDocyment.Text = requestsObj.DocumentName;
-            var statusObj = AppConnect.modelOdb.Status.ToList();
+                var statusObj = AppConnect.modelOdb.Status.ToList();
             List<string> statuses = new List<string>();
             for (int i = 0; i < statusObj.Count; i++)
             {
@@ -83,11 +68,17 @@ namespace Warehouse.MainPages
             }
             ComboBoxAssets.ItemsSource = assets;
         }
-        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            if (AppConnect.modelOdb.Documents.Count(x => x.Name == TextBoxDocyment.Text) > 0)
+            {
+                MessageBox.Show("Документ с таким номером уже существует!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             try
             {
+
                 string date = DPDate.SelectedDate.ToString().Substring(0, 10);
                 DateTime dateTime = DateTime.Parse(date);
                 string date2 = DPDeadline.SelectedDate.ToString().Substring(0, 10);
@@ -102,34 +93,54 @@ namespace Warehouse.MainPages
                 var priorityObj = AppConnect.modelOdb.Priorities.FirstOrDefault(x => priority == x.Name);
                 string company = ComboBoxCompany.SelectedItem.ToString();
                 var companyObj = AppConnect.modelOdb.Companies.FirstOrDefault(x => company == x.Name);
-                var requestsObj = AppConnect.modelOdb.Requests.FirstOrDefault(x => x.Id == HelpClass.reqId);
-                var documentsObj = AppConnect.modelOdb.Documents.FirstOrDefault(x => x.Id == requestsObj.DocumentId);
-                requestsObj.StatusId = statusObj.Id;
-                requestsObj.Date = dateTime;
-                requestsObj.Deadline = dateTime2;
-                requestsObj.ThemeId = themeObj.Id;
-                requestsObj.ExecutorId = executorObj.Id;
-                requestsObj.PriorityId = priorityObj.Id;
-                requestsObj.СompanyId = companyObj.Id;
-                requestsObj.Creator = TextBoxCreator.Text;
-                requestsObj.Customer = TextBoxCustomer.Text;
-                requestsObj.Address = TextBoxAddress.Text;
-                requestsObj.Content = TextBoxContent.Text;
-                documentsObj.Name = TextBoxDocyment.Text;
+                string assets = ComboBoxAssets.SelectedItem.ToString();
+                var assetsObj = AppConnect.modelOdb.MaterialAssets.FirstOrDefault(x => assets == x.Name);
+                var suppliesObj = AppConnect.modelOdb.Supplies.FirstOrDefault(x => x.MaterialAssetsId == assetsObj.Id);
+                Document document = new Document()
+                {
+                    DocumentTypeId = 2,
+                    WerehouseId = 1,
+                    Name = TextBoxDocyment.Text,
+                    Date = dateTime
+                };
+                AppConnect.modelOdb.Documents.Add(document);
+                DocumentItem documentItem = new DocumentItem()
+                {
+                    Document = document,
+                    MaterialAssetsId = assetsObj.Id,
+                    Amount = 1,
+                    PriceForUnit = suppliesObj.PriceForUnit
+                };
+                AppConnect.modelOdb.DocumentItems.Add(documentItem);
+                suppliesObj.Amount -= 1;
+                Request requestObj = new Request()
+                {
+                    StatusId = statusObj.Id,
+                    Date = dateTime,
+                    Deadline = dateTime2,
+                    ThemeId = themeObj.Id,
+                    Customer = TextBoxCustomer.Text,
+                    ExecutorId = executorObj.Id,
+                    PriorityId = priorityObj.Id,
+                    СompanyId = companyObj.Id,
+                    Creator = TextBoxCreator.Text,
+                    Address = TextBoxAddress.Text,
+                    Content = TextBoxContent.Text,
+                    DocumentId = document.Id
+                };
+                AppConnect.modelOdb.Requests.Add(requestObj);
                 AppConnect.modelOdb.SaveChanges();
-                MessageBox.Show("Данные успешно изменены!",
+                MessageBox.Show("Данные успешно добавлены",
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.Navigate(new PageRequests());
+                this.Close();
+
             }
             catch
             {
-                MessageBox.Show("Ошибка при изменение данных!",
+                MessageBox.Show("Ошибка при добавлении данных!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageRequests());
         }
     }
 }

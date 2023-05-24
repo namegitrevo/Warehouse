@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Warehouse.ApplicationData;
 using Warehouse.AssistanceClass;
+using Warehouse.Windows;
 
 namespace Warehouse.MainPages
 {
@@ -46,7 +48,9 @@ namespace Warehouse.MainPages
                     Request employeesObj = RequestsList.SelectedItems[i] as Request;
                     HelpClass.reqId = employeesObj.Id;
                 }
-                AppFrame.frameMain.Navigate(new PageEditRequests());
+                WRequestsEdit wRequestsEdit = new WRequestsEdit();
+                wRequestsEdit.ShowDialog();
+                
             }
             else
             {
@@ -98,35 +102,13 @@ namespace Warehouse.MainPages
             TextBlockCount.Text = Count;
 
         }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageLogin());
-        }
-
-        private void ButtonMenu_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageMainMenu());
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageAddRequests());
+            WRequestsAdd wRequestsAdd = new WRequestsAdd();
+            wRequestsAdd.ShowDialog();
+            
         }
 
-        private void ButtonUp_Click(object sender, RoutedEventArgs e)
-        {
-
-            list1 = list1.OrderBy(x => x.StatusId).ToList();
-            RequestsList.ItemsSource = list1;
-
-        }
-
-        private void ButtonDown_Click(object sender, RoutedEventArgs e)
-        {
-            list1 = list1.OrderByDescending(x => x.StatusId).ToList();
-            RequestsList.ItemsSource = list1;
-        }
 
         private void TextBoxFind_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -139,9 +121,10 @@ namespace Warehouse.MainPages
             }
             else
             {
-                list1 = list1.Where
-               (x => x.Customer.StartsWith(TextBoxFind.Text, StringComparison.CurrentCultureIgnoreCase)
-                || x.Customer.Contains(TextBoxFind.Text)).ToList();
+                list1 = list1.Where(x => x.Customer.ToLower().Contains(TextBoxFind.Text.ToLower())).ToList();
+                // list1 = list1.Where
+                //(x => x.Customer.StartsWith(TextBoxFind.Text, StringComparison.CurrentCultureIgnoreCase)
+                // || x.Customer.Contains(TextBoxFind.Text)).ToList();
                 RequestsList.ItemsSource = list1;
                 string Count = "Кол-во заявок: " + RequestsList.Items.Count.ToString();
                 TextBlockCount.Text = Count;
@@ -154,6 +137,72 @@ namespace Warehouse.MainPages
             RequestsList.ItemsSource = list1;
             string Count = "Кол-во заявок: " + RequestsList.Items.Count.ToString();
             TextBlockCount.Text = Count;
+        }
+
+        GridViewColumnHeader _lastHeaderClicked = null;
+        ListSortDirection _lastDirection = ListSortDirection.Ascending;
+
+        private void RequestsList_Click(object sender, RoutedEventArgs e)
+        {
+            var headerClicked = e.OriginalSource as GridViewColumnHeader;
+            ListSortDirection direction;
+
+            if (headerClicked != null)
+            {
+                if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
+                {
+                    if (headerClicked != _lastHeaderClicked)
+                    {
+                        direction = ListSortDirection.Ascending;
+                    }
+                    else
+                    {
+                        if (_lastDirection == ListSortDirection.Ascending)
+                        {
+                            direction = ListSortDirection.Descending;
+                        }
+                        else
+                        {
+                            direction = ListSortDirection.Ascending;
+                        }
+                    }
+
+                    var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+                    var sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
+
+                    Sort(sortBy, direction);
+
+                    if (direction == ListSortDirection.Ascending)
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowUp"] as DataTemplate;
+                    }
+                    else
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowDown"] as DataTemplate;
+                    }
+
+                    // Remove arrow from previously sorted header
+                    if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked)
+                    {
+                        _lastHeaderClicked.Column.HeaderTemplate = null;
+                    }
+
+                    _lastHeaderClicked = headerClicked;
+                    _lastDirection = direction;
+                }
+            }
+        }
+        private void Sort(string sortBy, ListSortDirection direction)
+        {
+            ICollectionView dataView =
+              CollectionViewSource.GetDefaultView(RequestsList.ItemsSource);
+
+            dataView.SortDescriptions.Clear();
+            SortDescription sd = new SortDescription(sortBy, direction);
+            dataView.SortDescriptions.Add(sd);
+            dataView.Refresh();
         }
     }
 }

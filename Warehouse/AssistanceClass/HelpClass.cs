@@ -20,6 +20,7 @@ namespace Warehouse.AssistanceClass
         public static int DocumentAddId { get; set; } //возможно стоит совместить с DocId
         public static int DocId2 { get; set; }//Для кнопок редактирования, костыль
         public static string DocItemAddId2 { get; set; }//костыль
+        public static int AssetsId { get; set; }
 
     }
 }

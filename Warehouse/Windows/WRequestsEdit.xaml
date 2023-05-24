@@ -1,0 +1,91 @@
+﻿<Window x:Class="Warehouse.Windows.WRequestsEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouse.Windows"
+        mc:Ignorable="d"
+        Title="Редактирование" Height="520" Width="670" MinHeight="520" MinWidth="620">
+    <DockPanel LastChildFill="True" Background="White">
+        <Grid DockPanel.Dock="Top" Height="58" Grid.Row="0" Background="#333333">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Редактирование заявки"  Style="{StaticResource Title}" Margin="10" Foreground="White"/>
+                <Image Source="pack://application:,,,/Resources/Logo2.png" Visibility="Visible" Width="40" Height="40" Margin="10" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0"  Grid.Row="0" Text="Статус:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="1" Grid.Row="0" x:Name="ComboBoxStatus" 
+                      Margin="5" Height="20"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Center" Width="300"
+                      />
+                <TextBlock Grid.Column="0"  Grid.Row="1" Text="Дата открытия:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <DatePicker Name="DPDate" Grid.Column="1" Grid.Row="1" Margin="5" VerticalAlignment="Center"  HorizontalAlignment="Left" Width="300" IsDropDownOpen="False" SelectedDateFormat="Short"/>
+                <TextBlock Grid.Column="0"  Grid.Row="2" Text="Крайний срок:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <DatePicker Name="DPDeadline" Grid.Column="1" Grid.Row="2" Margin="5" VerticalAlignment="Center"  HorizontalAlignment="Left" Width="300" IsDropDownOpen="False" SelectedDateFormat="Short"/>
+                <TextBlock Grid.Column="0"  Grid.Row="3" Text="Тема:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ComboBoxTheme" 
+                      Margin="5" Height="20"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Center" Width="300"
+                      />
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Заказчик:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" Grid.Row="4" x:Name="TextBoxCustomer" Margin="5"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"/>
+                <TextBlock Grid.Column="0"  Grid.Row="5" Text="Исполнитель:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="1" Grid.Row="5" x:Name="ComboBoxExecutor" 
+                      Margin="5" Height="20"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Center" Width="300"
+                      />
+                <TextBlock Grid.Column="0"  Grid.Row="6" Text="Приоритет:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="1" Grid.Row="6" x:Name="ComboBoxPriority" 
+                      Margin="5" Height="20"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Center" Width="300"
+                      />
+                <TextBlock Grid.Column="0"  Grid.Row="7" Text="Компания:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="1" Grid.Row="7" x:Name="ComboBoxCompany" 
+                      Margin="5" Height="20"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Center" Width="300"
+                      />
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Создатель:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" Grid.Row="8" x:Name="TextBoxCreator" Margin="5"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"/>
+                <TextBlock Grid.Column="0" Grid.Row="9" Text="Адрес" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" Grid.Row="9" x:Name="TextBoxAddress" Margin="5"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"/>
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Содержание:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" Grid.Row="10" x:Name="TextBoxContent" Margin="5"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"/>
+                <TextBlock Grid.Column="0"  Grid.Row="11" Text="Номер документа:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" Grid.Row="11" x:Name="TextBoxDocyment" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"/>
+                <TextBlock Visibility="Collapsed" Grid.Column="0"  Grid.Row="12" Text="Товарно-материальная ценность:" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <ComboBox Visibility="Collapsed" Grid.Column="1" Grid.Row="12" x:Name="ComboBoxAssets" 
+                      Margin="5" Height="20"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Center" Width="300"
+                      />
+                <TextBlock Grid.Column="3" Grid.Row="13"  Text="*обязательно" Visibility="Hidden" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <StackPanel Grid.Row="13" Grid.Column="1" Orientation="Horizontal"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button x:Name="ButtonEdit" Content="Сохранить" Margin="5" Height="25" Width="140" Click="ButtonEdit_Click"/>
+                    
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</Window>

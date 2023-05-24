@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Warehouse.ApplicationData;
 using Warehouse.AssistanceClass;
+using Warehouse.MainPages;
 
-namespace Warehouse.MainPages
+namespace Warehouse.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для PageEditRequests.xaml
+    /// Логика взаимодействия для WRequestsEdit.xaml
     /// </summary>
-    public partial class PageEditRequests : Page
+    public partial class WRequestsEdit : Window
     {
-        public PageEditRequests()
+        public WRequestsEdit()
         {
             InitializeComponent();
             var requestsObj = AppConnect.modelOdb.Requests.FirstOrDefault(x => x.Id == HelpClass.reqId);
@@ -119,6 +119,8 @@ namespace Warehouse.MainPages
                 AppConnect.modelOdb.SaveChanges();
                 MessageBox.Show("Данные успешно изменены!",
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.Navigate(new PageRequests());
+                this.Close();
             }
             catch
             {
@@ -127,9 +129,5 @@ namespace Warehouse.MainPages
             }
         }
 
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageRequests());
-        }
     }
 }

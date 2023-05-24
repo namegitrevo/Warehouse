@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Авторизация">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
@@ -28,8 +28,7 @@
             <Button x:Name="ButtonLogin"  Grid.Row="5" Width="100"
                 Grid.ColumnSpan="2" 
                 Margin="2" Content="Войти" 
-                HorizontalAlignment="Center" Click="ButtonLogin_Click"
-                    Background="LightGray"/>
+                HorizontalAlignment="Center" Click="ButtonLogin_Click"/>
         </Grid>
     </StackPanel>
 </Page>

@@ -16,8 +16,8 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -25,23 +25,20 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <TextBox x:Name="TextBoxFind" Foreground="Gray" Width="200" Height="24" Margin="5,0,5,0" TextChanged="TextBoxFind_TextChanged"/>
-                <Button x:Name="ButtonUp" Content="/\" Width="25" Height="24" Margin="5,0,5,0" Click="ButtonUp_Click"/>
-                <Button x:Name="ButtonDown" Content="\/" Width="25" Height="24" Margin="5,0,5,0" Click="ButtonDown_Click"/>
+                <Button x:Name="ButtonReset" Style="{StaticResource buttonreset}" Click="ButtonReset_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="AddButton" Content="Добавить" Click="AddButton_Click" />
                 <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="EditButton" Content="Редактировать" Click="EditButton_Click"/>
                 <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="DeleteButton" Content="Удалить" Click="DeleteButton_Click"/>
-                <Button Width="60" Height="24" Margin="5,0,5,0" x:Name="BackButton" Content="Выйти" Click="BackButton_Click"/>
+                
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="ButtonMenu" Content="Меню" Click="ButtonMenu_Click"/>
+                
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button Width="90" Height="24" Margin="5,0,5,0" x:Name="ButtonReset" Content="Сбросить" Click="ButtonReset_Click"/>
-            </StackPanel>
+            
         </Grid>
-        <ListView x:Name="AssetsList" Grid.Row="1" Background="White">
+        <ListView x:Name="AssetsList" Grid.Row="1" GridViewColumnHeader.Click="AssetsList_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ItemNumber}">Инвентарный номер</GridViewColumn>

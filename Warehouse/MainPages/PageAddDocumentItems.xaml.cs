@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Warehouse.ApplicationData;
 using Warehouse.AssistanceClass;
+using Warehouse.Windows;
 
 namespace Warehouse.MainPages
 {
@@ -68,7 +69,7 @@ namespace Warehouse.MainPages
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            if (HelpClass.DocItemAddId == "Edit2")//костыль
+            else if (HelpClass.DocItemAddId == "Edit2")//костыль
             {
                 List<DocumentItem> list1 = AppConnect.modelOdb.DocumentItems.Where(x => HelpClass.DocumentAddId == x.DocumentId).ToList();
                 if (list1.Count(x => x.AssetsName == ComboBoxAssets.SelectedItem.ToString()) > 0)
@@ -150,5 +151,11 @@ namespace Warehouse.MainPages
             }
         }
 
+        private void ButtonNewAssets_Click(object sender, RoutedEventArgs e)
+        {
+            HelpClass.AssetsId = 2;
+            WAssetsAdd wAssetsAdd = new WAssetsAdd();
+            wAssetsAdd.ShowDialog();
+        }
     }
 }

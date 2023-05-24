@@ -5,17 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Warehouse"
         mc:Ignorable="d"
-        Title="Warehouse" Height="450" Width="800" MinHeight="450" MinWidth="800" >
-    <Grid Background="White">
+        x:Name="main1"
+        Title="Warehouse" Height="450" Width="830" MinHeight="450" MinWidth="830">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{ TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#e76238"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Background" Value="#e76238"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#333333" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="58"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
-            <TextBlock Text="{Binding ElementName=FrmMain, Path=Content.Title}" Style="{StaticResource Title}" Margin="10"/>
-            <Image Source="Resources/logo.png" Width="60" Height="60" Margin="10"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="menupanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="#e7eff1">
+            <Button x:Name="ButtonReceipt" Width="130" Height="24" Margin="5" Content="Поступление" Click="ButtonReceipt_Click"/>
+            <Button x:Name="ButtonRequest" Width="130" Height="24" Margin="5" Content="Заявки" Click="ButtonRequest_Click"/>
+            <Button x:Name="ButtonSupplies" Width="130" Height="24" Margin="5" Content="Запасы" Click="ButtonSupplies_Click"/>
+            <Button x:Name="ButtonUser" Width="130" Height="24" Margin="5" Content="Пользователи" Click="ButtonUser_Click"/>
+            <Button x:Name="ButtonAssets" Width="130" Height="24" Margin="5" Content="Ценности" Click="ButtonAssets_Click"/>
+            <Button x:Name="ButtonBack" Width="130" Height="24" Margin="5" Content="Выйти" Click="ButtonBack_Click"/>
         </StackPanel>
-        <Frame x:Name="FrmMain" Grid.Row="1"
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+            <TextBlock Text="{Binding ElementName=FrmMain, Path=Content.Title}" Style="{StaticResource Title}" Margin="10" Foreground="White"/>
+            <Image Source="Resources/Logo2.png" Width="40" Height="40" Margin="10"/>
+        </StackPanel>
+        <Frame x:Name="FrmMain" Grid.Row="1" Grid.Column="1" Background="White"
                NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

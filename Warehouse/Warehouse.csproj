@@ -67,6 +67,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\WAssetsAdd.xaml.cs">
+      <DependentUpon>WAssetsAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WAssetsEdit.xaml.cs">
+      <DependentUpon>WAssetsEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WEmployeesAdd.xaml.cs">
+      <DependentUpon>WEmployeesAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WEmployeesEdit.xaml.cs">
+      <DependentUpon>WEmployeesEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WRequestsAdd.xaml.cs">
+      <DependentUpon>WRequestsAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WRequestsEdit.xaml.cs">
+      <DependentUpon>WRequestsEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WSuppliesAdd.xaml.cs">
+      <DependentUpon>WSuppliesAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WSuppliesEdit.xaml.cs">
+      <DependentUpon>WSuppliesEdit.xaml</DependentUpon>
+    </Compile>
     <Page Include="AdminPages\PageAddAssets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,10 +148,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPages\PageLogin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPages\PageMainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,9 +298,6 @@
     <Compile Include="MainPages\PageLogin.xaml.cs">
       <DependentUpon>PageLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPages\PageMainMenu.xaml.cs">
-      <DependentUpon>PageMainMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPages\PageReceipt.xaml.cs">
       <DependentUpon>PageReceipt.xaml</DependentUpon>
     </Compile>
@@ -291,6 +308,38 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\WAssetsAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WAssetsEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WEmployeesAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WEmployeesEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WRequestsAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WRequestsEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WSuppliesAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WSuppliesEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -327,6 +376,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Logo2.png" />
+    <Resource Include="Resources\refresh.png" />
     <Content Include="ApplicationData\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -373,5 +424,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

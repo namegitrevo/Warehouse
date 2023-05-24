@@ -32,24 +32,28 @@ namespace Warehouse.MainPages
             try
             {
                 var employeeObj = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.Login == txbLogin.Text && x.Password == psbPassword.Password);
-                HelpClass.RoleId = employeeObj.RoleId;
                 if (employeeObj == null)
                 {
                     MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
+                    MainWindow SetWindow = Window.GetWindow(this) as MainWindow;
+                    SetWindow.menupanel.Visibility = Visibility.Visible;
+                    HelpClass.RoleId = employeeObj.RoleId;
                     switch (employeeObj.RoleId)
                     {
                         case 1:
                             MessageBox.Show("Здравствуйте, Администратор " + employeeObj.Surname + " " + employeeObj.Name + " " + employeeObj.Patronymic + "!", "Уведомление",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
-                            AppFrame.frameMain.Navigate(new PageMainMenu());
+                            SetWindow.ButtonUser.Visibility = Visibility.Visible;
+                            AppFrame.frameMain.Navigate(new PageSupplies());
                             break;
                         case 2:
                             MessageBox.Show("Здравствуйте, " + employeeObj.Surname + " " + employeeObj.Name + " " + employeeObj.Patronymic + "!", "Уведомление",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
-                            AppFrame.frameMain.Navigate(new PageMainMenu());
+                            SetWindow.ButtonUser.Visibility = Visibility.Collapsed;
+                            AppFrame.frameMain.Navigate(new PageSupplies());
                             break;
                         default:
                             MessageBox.Show("Данные не обнаружены!", "Уведомление",

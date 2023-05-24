@@ -103,7 +103,7 @@ namespace Warehouse.MainPages
                     DocumentTypeId = 2,
                     WerehouseId = 1,
                     Name = TextBoxDocyment.Text,
-                    Date = dateTime2
+                    Date = dateTime
                 };
                 AppConnect.modelOdb.Documents.Add(document);
                 DocumentItem documentItem = new DocumentItem()
